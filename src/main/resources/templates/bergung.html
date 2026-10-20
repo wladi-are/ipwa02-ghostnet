@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmente :: kopf('Bergung übernehmen')}"></head>
+<body>
+<header th:replace="~{fragmente :: navigation}"></header>
+<main>
+    <h1>Bergung übernehmen</h1>
+
+    <div class="karte">
+        <div class="karte-kopf">Netz Nr. <span th:text="${netz.id}">1</span></div>
+        <dl>
+            <dt>Standort</dt>
+            <dd th:text="${#numbers.formatDecimal(netz.breitengrad, 1, 4, 'POINT')} + ', ' + ${#numbers.formatDecimal(netz.laengengrad, 1, 4, 'POINT')}">54.1, 7.9</dd>
+            <dt>Größe</dt>
+            <dd th:text="'ca. ' + ${netz.geschaetzteGroesse} + ' m²'">ca. 50 m²</dd>
+            <dt>Status</dt>
+            <dd th:text="${netz.status.bezeichnung}">Gemeldet</dd>
+        </dl>
+    </div>
+
+    <form th:action="@{/netze/{id}/bergung(id=${netz.id})}" th:object="${bergung}" method="post" novalidate>
+        <fieldset>
+            <legend>Bergende Person</legend>
+            <label for="name">Name</label>
+            <input id="name" type="text" th:field="*{name}" th:errorclass="ungueltig">
+            <p class="feldfehler" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+            <label for="telefonnummer">Telefonnummer</label>
+            <input id="telefonnummer" type="tel" th:field="*{telefonnummer}" th:errorclass="ungueltig">
+            <p class="feldfehler" th:if="${#fields.hasErrors('telefonnummer')}" th:errors="*{telefonnummer}"></p>
+        </fieldset>
+
+        <button type="submit" class="knopf">Bergung eintragen</button>
+        <a th:href="@{/}">Abbrechen</a>
+    </form>
+</main>
+</body>
+</html>

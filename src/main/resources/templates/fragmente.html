@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="kopf(titel)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titel} + ' | Ghost Net Fishing'">Ghost Net Fishing</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:fragment="navigation">
+    <div class="marke">Ghost Net Fishing</div>
+    <nav>
+        <a th:href="@{/}">Übersicht</a>
+        <a th:href="@{/netze/neu}">Netz melden</a>
+    </nav>
+</header>
+<div th:fragment="meldungen">
+    <p class="hinweis" th:if="${hinweis}" th:text="${hinweis}"></p>
+    <p class="fehler-box" th:if="${fehler}" th:text="${fehler}"></p>
+</div>
+</body>
+</html>

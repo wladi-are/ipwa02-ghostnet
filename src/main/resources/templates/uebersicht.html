@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmente :: kopf('Übersicht')}"></head>
+<body>
+<header th:replace="~{fragmente :: navigation}"></header>
+<main class="breit">
+    <h1>Übersicht der Geisternetze</h1>
+    <p class="info"><strong th:text="${nochZuBergen}">0</strong> Netze sind noch zu bergen
+        (Spalten „Gemeldet“ und „Bergung bevorstehend“).</p>
+    <div th:replace="~{fragmente :: meldungen}"></div>
+
+    <div class="board">
+        <section class="spalte" th:each="spalte : ${spalten}" th:with="status=${spalte.key}, netze=${spalte.value}" th:classappend="${#strings.toLowerCase(status.name())}">
+            <h2>
+                <span th:text="${status.bezeichnung}">Status</span>
+                <span class="anzahl" th:text="${netze.size()}">0</span>
+            </h2>
+
+            <p class="leer" th:if="${netze.isEmpty()}">Keine Netze</p>
+            <p class="leer" th:if="${status.name() == 'VERSCHOLLEN'}">Verschollen melden folgt in einem späteren Sprint.</p>
+
+            <article class="karte" th:each="netz : ${netze}">
+                <div class="karte-kopf">Netz Nr. <span th:text="${netz.id}">1</span></div>
+                <dl>
+                    <dt>Standort</dt>
+                    <dd th:text="${#numbers.formatDecimal(netz.breitengrad, 1, 4, 'POINT')} + ', ' + ${#numbers.formatDecimal(netz.laengengrad, 1, 4, 'POINT')}">54.1, 7.9</dd>
+                    <dt>Größe</dt>
+                    <dd th:text="'ca. ' + ${netz.geschaetzteGroesse} + ' m²'">ca. 50 m²</dd>
+                    <dt>Gemeldet</dt>
+                    <dd>
+                        <span th:text="${#temporals.format(netz.gemeldetAm, 'dd.MM.yyyy HH:mm')}">01.01.2026</span>,
+                        <span th:text="${netz.anonymGemeldet} ? 'anonym' : ${netz.meldendePerson.name}">anonym</span>
+                    </dd>
+                    <th:block th:if="${netz.bergendePerson != null}">
+                        <dt>Bergung</dt>
+                        <dd>
+                            <span th:text="${netz.bergendePerson.name}">Name</span><br>
+                            <span class="telefon" th:text="${netz.bergendePerson.telefonnummer}">Telefon</span>
+                        </dd>
+                    </th:block>
+                </dl>
+
+                <div class="aktionen" th:if="${status.name() == 'GEMELDET'}">
+                    <a class="knopf" th:href="@{/netze/{id}/bergung(id=${netz.id})}">Bergung übernehmen</a>
+                </div>
+                <div class="aktionen" th:if="${status.name() == 'BERGUNG_BEVORSTEHEND'}">
+                    <form th:action="@{/netze/{id}/geborgen(id=${netz.id})}" method="post">
+                        <button type="submit" class="knopf">Als geborgen melden</button>
+                    </form>
+                    <form th:action="@{/netze/{id}/abgeben(id=${netz.id})}" method="post">
+                        <button type="submit" class="knopf zweitrangig">Bergung abgeben</button>
+                    </form>
+                </div>
+            </article>
+        </section>
+    </div>
+</main>
+</body>
+</html>

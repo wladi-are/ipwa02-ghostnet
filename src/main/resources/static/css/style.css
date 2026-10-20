@@ -1,0 +1,41 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #1d2733; background: #f3f5f7; }
+header { display: flex; align-items: center; gap: 32px; padding: 12px 24px; background: #1f4e6b; color: #fff; }
+header .marke { font-weight: bold; font-size: 18px; }
+header nav a { color: #fff; margin-right: 20px; text-decoration: none; }
+header nav a:hover { text-decoration: underline; }
+main { max-width: 620px; margin: 24px auto; padding: 0 16px; }
+main.breit { max-width: 1280px; }
+h1 { font-size: 24px; margin: 0 0 8px; }
+.info { color: #4a5866; margin: 0 0 16px; }
+.klein { font-size: 13px; margin-top: 4px; }
+.hinweis { background: #e3f1e5; border-left: 4px solid #3b8a4a; padding: 10px 12px; }
+.fehler-box { background: #fbe7e7; border-left: 4px solid #b23b3b; padding: 10px 12px; }
+.board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; align-items: start; }
+.spalte { background: #e4e9ee; border-radius: 6px; padding: 10px; border-top: 4px solid #8a99a8; }
+.spalte.gemeldet { border-top-color: #d08a1e; }
+.spalte.bergung_bevorstehend { border-top-color: #2f6fa3; }
+.spalte.geborgen { border-top-color: #3b8a4a; }
+.spalte.verschollen { border-top-color: #7a7a7a; }
+.spalte h2 { font-size: 16px; margin: 4px 0 10px; display: flex; justify-content: space-between; }
+.anzahl { background: #fff; border-radius: 10px; padding: 0 8px; font-weight: normal; }
+.leer { color: #6b7885; font-size: 13px; margin: 6px 0; }
+.karte { background: #fff; border-radius: 5px; padding: 10px 12px; margin-bottom: 10px; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.karte-kopf { font-weight: bold; margin-bottom: 6px; }
+dl { display: grid; grid-template-columns: 80px 1fr; gap: 3px 8px; margin: 0; font-size: 13px; }
+dt { color: #6b7885; }
+dd { margin: 0; }
+.aktionen { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.aktionen form { margin: 0; }
+.knopf { display: inline-block; background: #1f4e6b; color: #fff; border: 0; border-radius: 4px; padding: 7px 12px; font-size: 13px; text-decoration: none; cursor: pointer; }
+.knopf.zweitrangig { background: #fff; color: #1f4e6b; border: 1px solid #1f4e6b; }
+form fieldset { border: 1px solid #c9d2db; border-radius: 6px; background: #fff; margin: 0 0 16px; padding: 12px 16px 16px; }
+legend { font-weight: bold; padding: 0 6px; }
+label { display: block; margin: 10px 0 4px; }
+label.haken { display: flex; gap: 8px; align-items: center; }
+input[type=text], input[type=tel], input[type=number] { width: 100%; padding: 7px 8px; border: 1px solid #9aa7b4; border-radius: 4px; font-size: 15px; }
+input.ungueltig { border-color: #b23b3b; background: #fff6f6; }
+.feldfehler { color: #b23b3b; font-size: 13px; margin: 4px 0 0; }
+form > a { margin-left: 12px; }
+@media (max-width: 900px) { .board { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .board { grid-template-columns: 1fr; } header { flex-wrap: wrap; gap: 8px; } }

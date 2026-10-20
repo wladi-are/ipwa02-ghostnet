@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmente :: kopf('Netz melden')}"></head>
+<body>
+<header th:replace="~{fragmente :: navigation}"></header>
+<main>
+    <h1>Geisternetz melden</h1>
+    <p class="info">Standort als Dezimalgrad angeben, z. B. 54.1782 und 7.8865 für ein Netz bei Helgoland.</p>
+
+    <form th:action="@{/netze}" th:object="${meldung}" method="post" novalidate>
+        <fieldset>
+            <legend>Netz</legend>
+            <label for="breitengrad">Breitengrad</label>
+            <input id="breitengrad" type="number" step="any" th:field="*{breitengrad}" th:errorclass="ungueltig">
+            <p class="feldfehler" th:if="${#fields.hasErrors('breitengrad')}" th:errors="*{breitengrad}"></p>
+
+            <label for="laengengrad">Längengrad</label>
+            <input id="laengengrad" type="number" step="any" th:field="*{laengengrad}" th:errorclass="ungueltig">
+            <p class="feldfehler" th:if="${#fields.hasErrors('laengengrad')}" th:errors="*{laengengrad}"></p>
+
+            <label for="geschaetzteGroesse">Geschätzte Größe in m²</label>
+            <input id="geschaetzteGroesse" type="number" min="1" th:field="*{geschaetzteGroesse}" th:errorclass="ungueltig">
+            <p class="feldfehler" th:if="${#fields.hasErrors('geschaetzteGroesse')}" th:errors="*{geschaetzteGroesse}"></p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Meldende Person</legend>
+            <label class="haken"><input type="checkbox" th:field="*{anonym}"> Ich möchte anonym melden</label>
+            <p class="info klein">Ohne Haken werden Name und Telefonnummer für Rückfragen benötigt.</p>
+
+            <label for="name">Name</label>
+            <input id="name" type="text" th:field="*{name}" th:errorclass="ungueltig">
+            <p class="feldfehler" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+            <label for="telefonnummer">Telefonnummer</label>
+            <input id="telefonnummer" type="tel" th:field="*{telefonnummer}" th:errorclass="ungueltig">
+            <p class="feldfehler" th:if="${#fields.hasErrors('telefonnummer')}" th:errors="*{telefonnummer}"></p>
+            <p class="feldfehler" th:if="${#fields.hasErrors('kontaktVollstaendig')}" th:errors="*{kontaktVollstaendig}"></p>
+        </fieldset>
+
+        <button type="submit" class="knopf">Netz melden</button>
+        <a th:href="@{/}">Abbrechen</a>
+    </form>
+</main>
+</body>
+</html>
