@@ -37,3 +37,6 @@ db-local.properties
 
 ### macOS ###
 .DS_Store
+
+### Zwischenstand der Browsertests ###
+browsertests/board_vor_neustart.json

@@ -14,3 +14,5 @@ spring.datasource.password=...
 ```
 
 Danach `./mvnw spring-boot:run` und im Browser http://localhost:8080 öffnen. Die Tabellen werden beim ersten Start automatisch angelegt.
+
+Tests: siehe `browsertests/TESTS.md`
